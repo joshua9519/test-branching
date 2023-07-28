@@ -1,5 +1,5 @@
 resource "google_storage_bucket" "default" {
-    location = "value"
+    location = "us-central1"
     name = "test"
     
 }
