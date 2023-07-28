@@ -1,1 +1,1 @@
-value=staging
+value=production
