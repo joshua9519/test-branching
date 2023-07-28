@@ -1,1 +1,1 @@
-value=dev
+value=staging
