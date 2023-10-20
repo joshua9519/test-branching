@@ -6,7 +6,7 @@ resource "google_storage_bucket" "default" {
 
 resource "google_storage_bucket_iam_member" "name" {
     bucket = google_storage_bucket.default.name
-    member = "me"
+    member = "user:me"
     role = "roles/storage.admin"
 }
 
