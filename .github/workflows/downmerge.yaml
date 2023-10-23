@@ -10,6 +10,8 @@ jobs:
               uses: actions/checkout@v4
               with:
                 ref: staging
+            - name: Fetch production branch
+              run: git fetch origin production
             - name: Git merge
               run: git merge production
     staging-to-dev:
@@ -21,10 +23,13 @@ jobs:
               uses: actions/checkout@v4
               with:
                 ref: main
+            - name: Fetch staging branch
+              run: git fetch origin staging
             - name: Git merge
               run: git merge staging
     notify-engineers:
         name: Notify Engineers of failure
+        needs: [prod-to-staging,staging-to-dev]
         if: failure()
         runs-on: ubuntu-latest
         steps:
