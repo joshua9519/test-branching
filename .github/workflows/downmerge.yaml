@@ -34,5 +34,22 @@ jobs:
         if: failure()
         runs-on: ubuntu-latest
         steps:
-            - name: notify
-              run: echo "failed"
+            - name: prod-to-staging failure
+              if: needs.prod-to-staging.result == 'failure'
+              run: |
+                echo "FROM=Production" >> $GITHUB_ENV
+                echo "TO=Staging" >> $GITHUB_ENV
+            - name: prod-to-staging failure
+              if: needs.staging-to-dev.result == 'failure'
+              run: |
+                  echo "FROM=Staging" >> $GITHUB_ENV
+                  echo "TO=Development" >> $GITHUB_ENV
+            - name: Send message to Slack API
+              uses: archive/github-actions-slack@v2.8.0
+              id: notify
+              with:
+                slack-bot-user-oauth-access-token: ${{ secrets.SLACK_BOT_USER_OAUTH_ACCESS_TOKEN }}
+                slack-channel: C03GWQ6C89Y
+                slack-text: Failed to downmerge ${{ env.FROM }} to ${{ env.TO }}! There are probably merge conflicts, please fix these!
+            - name: Result from "Send Message"
+              run: echo "The result was ${{ steps.notify.outputs.slack-result }}"
