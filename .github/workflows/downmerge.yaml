@@ -10,6 +10,8 @@ jobs:
               uses: actions/checkout@v4
               with:
                 ref: staging
+            - name: Fetch production branch
+              run: git fetch origin production
             - name: Git merge
               run: git merge origin/production
     staging-to-dev:
@@ -21,6 +23,8 @@ jobs:
               uses: actions/checkout@v4
               with:
                 ref: main
+            - name: Fetch staging branch
+              run: git fetch origin staging
             - name: Git merge
               run: git merge origin/staging
     notify-engineers:
