@@ -9,11 +9,12 @@ jobs:
             - name: checkout
               uses: actions/checkout@v4
               with:
-                ref: staging
-            - name: Fetch production branch
-              run: git fetch origin production
-            - name: Git merge
-              run: git merge origin/production
+                fetch-depth: 0
+            - run: |
+                git config --global user.email "github-actions[bot]@users.noreply.github.com"
+                git config --global user.name "github-actions"
+            - run: git checkout staging
+            - run: git merge origin/production
     staging-to-dev:
         name: Staging to Dev
         runs-on: ubuntu-latest
