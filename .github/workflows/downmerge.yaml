@@ -1,0 +1,32 @@
+name: Downmerge
+on:
+    workflow_dispatch: {}
+jobs:
+    prod-to-staging:
+        name: Prod to Staging
+        runs-on: ubuntu-latest
+        steps:
+            - name: checkout
+              uses: actions/checkout@v4
+              with:
+                ref: staging
+            - name: Git merge
+              run: git merge production
+    staging-to-dev:
+        name: Staging to Dev
+        runs-on: ubuntu-latest
+        needs: prod-to-staging
+        steps:
+            - name: checkout
+              uses: actions/checkout@v4
+              with:
+                ref: main
+            - name: Git merge
+              run: git merge staging
+    notify-engineers:
+        name: Notify Engineers of failure
+        if: failure()
+        runs-on: ubuntu-latest
+        steps:
+            - name: notify
+              run: echo "failed"
