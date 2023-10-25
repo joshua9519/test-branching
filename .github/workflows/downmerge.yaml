@@ -15,6 +15,7 @@ jobs:
                 git config --global user.name "github-actions"
             - run: git checkout staging
             - run: git merge origin/production
+            - run: git push
     staging-to-dev:
         name: Staging to Dev
         runs-on: ubuntu-latest
