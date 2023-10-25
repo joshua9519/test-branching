@@ -24,11 +24,13 @@ jobs:
             - name: checkout
               uses: actions/checkout@v4
               with:
-                ref: main
-            - name: Fetch staging branch
-              run: git fetch origin staging
-            - name: Git merge
-              run: git merge origin/staging
+                fetch-depth: 0
+            - run: |
+                git config --global user.email "github-actions[bot]@users.noreply.github.com"
+                git config --global user.name "github-actions"
+            - run: git checkout main
+            - run: git merge origin/staging
+            - run: git push
     notify-engineers:
         name: Notify Engineers of failure
         needs: [prod-to-staging,staging-to-dev]
