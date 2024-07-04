@@ -1,4 +1,4 @@
-variable "value" {
+variable "name" {
   type        = string
   description = "the value"
 }
