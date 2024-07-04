@@ -1,2 +1,2 @@
-value=dev
-project=test-123
+value   = dev
+project = test-123
