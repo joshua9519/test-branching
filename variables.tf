@@ -1,6 +1,6 @@
-variable "value" {
+variable "bucket_name" {
   type        = string
-  description = "the value"
+  description = "the bucket name"
 }
 variable "project" {
   type        = string
