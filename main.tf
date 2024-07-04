@@ -1,6 +1,6 @@
 resource "google_storage_bucket" "default" {
   location = "us-east1"
-  name     = var.value
+  name     = var.name
   project  = var.project
 }
 
