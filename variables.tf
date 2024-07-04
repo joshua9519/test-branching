@@ -1,8 +1,8 @@
 variable "value" {
     type = string
-    description = "(optional) describe your variable"
+    description = "the value"
 }
 variable "project" {
     type = string
-    description = "(optional) describe your variable"
+    description = "the project"
 }
