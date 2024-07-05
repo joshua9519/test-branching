@@ -4,5 +4,5 @@ variable "bucket_name" {
 }
 variable "project" {
   type        = string
-  description = "the project id"
+  description = "the project id to use"
 }
