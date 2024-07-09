@@ -13,6 +13,7 @@ jobs:
       - run: |
           git config --global user.email "developers@vetspire.com"
           git config --global user.name "Github CI SA"
+          git fetch origin staging
           git merge origin/staging && git push
   merge-dev-to-staging:
     name: Merge Dev to Staging
@@ -26,4 +27,5 @@ jobs:
       - run: |
           git config --global user.email "developers@vetspire.com"
           git config --global user.name "Github CI SA"
-          git merge origin/master && git push
+          git fetch origin main
+          git merge origin/main && git push
