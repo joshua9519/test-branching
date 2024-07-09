@@ -1,0 +1,29 @@
+name: Deployment
+on:
+  workflow_dispatch: {}
+jobs:
+  merge-staging-to-prod:
+    name: Merge Staging to Prod
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@master
+        with:
+          ref: production
+          token: ${{ secrets.GH_PAT }}
+      - run: |
+          git config --global user.email "developers@vetspire.com"
+          git config --global user.name "Github CI SA"
+          git merge origin/staging && git push
+  merge-dev-to-staging:
+    name: Merge Dev to Staging
+    runs-on: ubuntu-latest
+    needs: merge-staging-to-prod
+    steps:
+      - uses: actions/checkout@master
+        with:
+          ref: staging
+          token: ${{ secrets.GH_PAT }}
+      - run: |
+          git config --global user.email "developers@vetspire.com"
+          git config --global user.name "Github CI SA"
+          git merge origin/master && git push
