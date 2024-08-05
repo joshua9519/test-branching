@@ -18,7 +18,7 @@ jobs:
             ACTIONS_ALLOW_UNSECURE_COMMANDS: true
             SLACK_TITLE: THIS IS A TEST PLEASE IGNORE
             SLACK_COLOR: 'failure'
-            SLACK_CHANNEL: 'CJ6PUMT4N'
+            SLACK_CHANNEL: 'deploy-status'
             SLACK_TOKEN: ${{ secrets.SLACK_BOT_USER_OAUTH_ACCESS_TOKEN }}
         steps:
           - run: echo ${SLACK_CHANNEL}
