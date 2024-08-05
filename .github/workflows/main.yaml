@@ -1,0 +1,27 @@
+name: Test notifications
+on:
+    push:
+        branches: main
+jobs:
+    failing-test:
+        name: Failing Test
+        runs-on: ubuntu-latest
+        steps:
+            - run: sleep 100 && exit 1
+
+    notify-failure:
+        name: Notify deploy-status channel failure
+        needs: [failing-test]
+        if: failure()
+        runs-on: ubuntu-latest
+        env:
+            ACTIONS_ALLOW_UNSECURE_COMMANDS: true
+            SLACK_TITLE: THIS IS A TEST PLEASE IGNORE
+            SLACK_COLOR: ${{ (contains(needs.*.result, 'cancelled') && 'cancelled') || (contains(needs.*.result, 'failure') && 'failure') }}
+            SLACK_CHANNEL: ${{ (contains(needs.*.result, 'cancelled') && 'deploy-status') || (contains(needs.*.result, 'failure') && 'dev') }}
+        steps:
+          - run: echo ${SLACK_CHANNEL}
+          - name: Notify the deploy-status channel about failure
+            uses: rtCamp/action-slack-notify@v2.3.0
+            env:
+                SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
