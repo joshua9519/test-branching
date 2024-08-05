@@ -12,13 +12,13 @@ jobs:
     notify-failure:
         name: Notify deploy-status channel failure
         needs: [failing-test]
-        if: failure() || cancelled()
+        if: failure()
         runs-on: ubuntu-latest
         env:
             ACTIONS_ALLOW_UNSECURE_COMMANDS: true
             SLACK_TITLE: THIS IS A TEST PLEASE IGNORE
-            SLACK_COLOR: ${{ (contains(needs.*.result, 'cancelled') && 'cancelled') || (contains(needs.*.result, 'failure') && 'failure') }}
-            SLACK_CHANNEL: ${{ (contains(needs.*.result, 'cancelled') && 'deploy-status') || (contains(needs.*.result, 'failure') && 'dev') }}
+            SLACK_COLOR: 'failure'
+            SLACK_CHANNEL: 'CJ6PUMT4N'
         steps:
           - run: echo ${SLACK_CHANNEL}
           - name: Notify the deploy-status channel about failure
