@@ -18,10 +18,9 @@ jobs:
             ACTIONS_ALLOW_UNSECURE_COMMANDS: true
             SLACK_TITLE: THIS IS A TEST PLEASE IGNORE
             SLACK_COLOR: 'failure'
-            SLACK_CHANNEL: 'CJ6PUMT4N'
+            SLACK_CHANNEL: 'dev'
+            SLACK_TOKEN: ${{ secrets.SLACK_BOT_USER_OAUTH_ACCESS_TOKEN }}
         steps:
           - run: echo ${SLACK_CHANNEL}
           - name: Notify the deploy-status channel about failure
             uses: rtCamp/action-slack-notify@v2.3.0
-            env:
-                SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
