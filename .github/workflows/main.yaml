@@ -12,7 +12,7 @@ jobs:
     notify-failure:
         name: Notify deploy-status channel failure
         needs: [failing-test]
-        if: failure()
+        if: failure() || cancelled()
         runs-on: ubuntu-latest
         env:
             ACTIONS_ALLOW_UNSECURE_COMMANDS: true
